@@ -1,0 +1,111 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f6fb;
+    color: #1e293b;
+}
+
+header {
+    background: #102a43;
+    color: white;
+    padding: 28px 8%;
+}
+
+header h1 {
+    margin: 0 0 8px;
+    font-size: 32px;
+}
+
+header p {
+    margin-bottom: 0;
+    color: #d9e7f5;
+}
+
+main {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 18px;
+}
+
+.search-box, .bus-card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px #102a4310;
+    margin-bottom: 20px;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+input, select {
+    border: 1px solid #cbd5e1;
+    background: white;
+}
+
+button {
+    border: none;
+    background: #087f8c;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #066570;
+}
+
+.bus-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.bus-card h3 {
+    margin-top: 0;
+}
+
+.bus-card p {
+    color: #64748b;
+}
+
+.price {
+    min-width: 130px;
+    text-align: right;
+}
+
+.price h2 {
+    color: #087f8c;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+}
+
+@media (max-width: 600px) {
+    .bus-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .price {
+        text-align: left;
+    }
+}
