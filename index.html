@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusGo | Bus Ticket Booking</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>BusGo</h1>
+        <p>Find your route. Compare your options. Travel smarter.</p>
+    </header>
+
+    <main>
+        <section class="search-box">
+            <h2>Find Your Bus</h2>
+
+            <form method="GET" action="/">
+                <label>From</label>
+                <input name="source" value="{{ source }}" required>
+
+                <label>To</label>
+                <input name="destination"
+                       value="{{ destination }}" required>
+
+                <label>Sort results by</label>
+                <select name="sort_by">
+                    <option value="fare"
+                        {% if sort_by == 'fare' %}selected{% endif %}>
+                        Lowest fare
+                    </option>
+                    <option value="departure"
+                        {% if sort_by == 'departure' %}selected{% endif %}>
+                        Departure time
+                    </option>
+                    <option value="duration"
+                        {% if sort_by == 'duration' %}selected{% endif %}>
+                        Journey duration
+                    </option>
+                    <option value="seats"
+                        {% if sort_by == 'seats' %}selected{% endif %}>
+                        Available seats
+                    </option>
+                </select>
+
+                <button type="submit">Search Buses</button>
+            </form>
+        </section>
+
+        <section class="results">
+            <h2>Available Buses</h2>
+            <p>{{ buses|length }} bus(es) found</p>
+
+            {% for bus in buses %}
+            <article class="bus-card">
+                <div>
+                    <h3>{{ bus.name }}</h3>
+                    <p>{{ bus.source }} → {{ bus.destination }}</p>
+                    <p>Departure: {{ bus.departure }}</p>
+                    <p>Duration: {{ bus.duration // 60 }}h
+                       {{ bus.duration % 60 }}m</p>
+                    <p>Available seats: {{ bus.seats }}</p>
+                </div>
+
+                <div class="price">
+                    <h2>₹{{ bus.fare }}</h2>
+                    <a href="{{ url_for('seats_page', bus_id=bus.id) }}"
+                    class="book-link">
+                    Select Bus
+                </a>
+            </div>
+            </article>
+            {% else %}
+            <p>No buses found for this route. Try another route.</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>BusGo — DSA Real-Time Project | Searching & Sorting</p>
+    </footer>
+</body>
+</html>

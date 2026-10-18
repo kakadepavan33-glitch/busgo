@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seats | BusGo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>BusGo</h1>
+        <p>Select your seat</p>
+    </header>
+
+    <main>
+        <section class="search-box">
+            <h2>{{ bus.name }}</h2>
+            <p>{{ bus.source }} → {{ bus.destination }}</p>
+            <p>Departure: {{ bus.departure }}</p>
+            <p>Fare per seat: ₹{{ bus.fare }}</p>
+
+            <form method="POST" action="{{ url_for('book_bus', bus_id=bus.id) }}">
+                <label for="passenger">Passenger name</label>
+                <input id="passenger" name="passenger" required maxlength="80"
+                       placeholder="Enter passenger name">
+
+                <label for="seat">Choose a seat</label>
+                <select id="seat" name="seat" required>
+                    {% for seat in seats %}
+                    <option value="{{ seat.number }}"
+                        {% if seat.booked %}disabled{% endif %}>
+                        Seat {{ seat.number }} -
+                        {% if seat.booked %}Booked{% else %}Available{% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Confirm Booking</button>
+            </form>
+
+            <p><a href="{{ url_for('home') }}">← Back to buses</a></p>
+        </section>
+    </main>
+</body>
+</html>
